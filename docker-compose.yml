@@ -1,0 +1,18 @@
+version: "2"
+
+services:
+  php:
+    image: atomy/steamrobot:latest
+    volumes:
+      - ./:/var/www/
+      - ./build/docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+    working_dir: /var/www/
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./:/var/www/
+      - ./build/docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+    links:
+      - php

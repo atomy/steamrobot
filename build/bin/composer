@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -e "$HOME/.ssh/environment" ] ; then
+    echo "Running docker with SSH-Agent forwarding..."
+    docker run --rm -t -v $(readlink -f $SSH_AUTH_SOCK):/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent -v ~/.ssh:/home/docker/.ssh -v ~/.composer/cache:/home/docker/.composer/cache -v $(pwd):/app -w /app atomy/steamrobot:latest php build/bin/composer.phar "$@"
+else
+    echo "Running docker WITHOUT SSH-Agent forwarding..."
+    docker run --rm -t -v ~/.ssh:/home/docker/.ssh -v ~/.composer/cache:/home/docker/.composer/cache -v $(pwd):/app -w /app atomy/steamrobot:latest php build/bin/composer.phar "$@"
+fi
