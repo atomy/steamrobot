@@ -1,0 +1,11 @@
+{
+  "name": "atomy/steamrobot",
+  "require": {
+    "php": ">=5.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Steamrobot\\": "src/"
+    }
+  }
+}
